@@ -122,7 +122,7 @@
                     }
 
                     if (!empty($successMessage)) {
-                      echo '<script>setTimeout(function(){ window.location.href = "index.php"; }, ' . rand(1000, 1000) . ');</script>';
+                      echo '<script>setTimeout(function(){ window.location.href = "/bileco/consumer/index.php"; }, ' . rand(1000, 1000) . ');</script>';
                     }
                   ?>
 
