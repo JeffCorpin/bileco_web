@@ -63,8 +63,12 @@
                               <form method="post" action="navigate.php">
                                 <a class="btn btn-primary" href="consumeredit.php?id=<?=$id;?>">Edit</a> &nbsp;
                                 <input type="hidden" name="id" value="<?=$id;?>">
-                                <button class="btn btn-danger" type="submit" name="btn-delete-consumer">Delete</button></td> 
-                              </form>
+                                <button class="btn btn-danger" type="submit" name="btn-delete-consumer" 
+                                        onclick="return confirm('Are you sure you want to delete this consumer?');">
+                                      Delete
+                                  </button>
+                                  </td> 
+                                </form>
                             </td>
                         </tr>
                         <?php
