@@ -43,13 +43,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'bileco@gmail.com'; // Your email address
-            $mail->Password   = 'abcd efgh ijkl mnop'; // Replace with your App Password
+            $mail->Username   = 'jeffcorpin03@gmail.com'; // Your email address
+            $mail->Password   = 'xapc poty zwab qfor'; // Replace with your App Password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = 587;
 
             // Email Content
-            $mail->setFrom('bileco@gmail.com', 'BILECO Support');
+            $mail->setFrom('jeffcorpin03@gmail.com', 'BILECO Support');
             $mail->addAddress($email); 
             $mail->Subject = 'Password Reset OTP';
             $mail->Body    = "Your OTP for password reset is: $otp";
