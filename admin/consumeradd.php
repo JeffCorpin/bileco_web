@@ -14,6 +14,12 @@ include 'header.php';
                         <div class="table-responsive">
                             <table class="table text-nowrap mb-0 align-middle">
                                 <form method="post" action="navigate.php">
+                                <div class="row mb-3">
+                                        <label class="col-form-label col-sm-3">Account Number</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" name="accountnum" required>
+                                        </div>
+                                    </div>
                                     <div class="row mb-3">
                                         <label class="col-form-label col-sm-3">First Name</label>
                                         <div class="col-sm-6">

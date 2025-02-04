@@ -14,9 +14,10 @@ public function addUser($data){
 
     $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
 
-	$sql ="INSERT INTO admins (firstname, middlename, lastname, suffix, address, email, contactnumber, hashedpassword) VALUES (:firstname, :middlename, :lastname, :suffix, :address, :email, :contactnumber, :hashedpassword)";
+	$sql ="INSERT INTO admins (accountnum, firstname, middlename, lastname, suffix, address, email, contactnumber, hashedpassword) VALUES (:firstname, :middlename, :lastname, :suffix, :address, :email, :contactnumber, :hashedpassword)";
 		$stmt = $this->db->conn->prepare($sql);
-		$r = $stmt->execute([ ':firstname' => $data['firstname'],
+		$r = $stmt->execute([ ':accountnum' => $data['accountnum'],
+							':firstname' => $data['firstname'],
 							  ':middlename' => $data['middlename'],
                               ':lastname' => $data['lastname'],
                               ':suffix' => $data['suffix'],
@@ -41,9 +42,10 @@ public function addUser($data){
 
 			$hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
 		
-			$sql ="INSERT INTO consumer (firstname, middlename, lastname, suffix, address, email, contactnumber, hashedpassword) VALUES (:firstname, :middlename, :lastname, :suffix, :address, :email, :contactnumber, :hashedpassword)";
+			$sql ="INSERT INTO consumer (accountnum, firstname, middlename, lastname, suffix, address, email, contactnumber, hashedpassword) VALUES (:firstname, :middlename, :lastname, :suffix, :address, :email, :contactnumber, :hashedpassword)";
 				$stmt = $this->db->conn->prepare($sql);
-				$r = $stmt->execute([ ':firstname' => $data['firstname'],
+				$r = $stmt->execute([ ':accountnum' => $data['accountnum'],
+									':firstname' => $data['firstname'],
 									  ':middlename' => $data['middlename'],
 									  ':lastname' => $data['lastname'],
 									  ':suffix' => $data['suffix'],
@@ -103,9 +105,10 @@ public function addUser($data){
 
         $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
 
-		$sql = 'UPDATE admins SET firstname=:firstname, middlename=:middlename, lastname=:lastname, suffix=:suffix, address=:address, email=:email, contactnumber=:contactnumber, hashedpassword=:hashedpassword WHERE id = :id';
+		$sql = 'UPDATE admins SET accountnum=:accountnum, firstname=:firstname, middlename=:middlename, lastname=:lastname, suffix=:suffix, address=:address, email=:email, contactnumber=:contactnumber, hashedpassword=:hashedpassword WHERE id = :id';
 		$stmt = $this->db->conn->prepare($sql);
-		$r = $stmt->execute([ ':firstname' => $data['firstname'],
+		$r = $stmt->execute([ ':accountnum' => $data['accountnum'],
+							':firstname' => $data['firstname'],
                             ':middlename' => $data['middlename'],
                             ':lastname' => $data['lastname'],
                             ':suffix' => $data['suffix'],
@@ -126,9 +129,10 @@ public function addUser($data){
 
         $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
 
-		$sql = 'UPDATE consumer SET firstname=:firstname, middlename=:middlename, lastname=:lastname, suffix=:suffix, address=:address, email=:email, contactnumber=:contactnumber, hashedpassword=:hashedpassword WHERE id = :id';
+		$sql = 'UPDATE consumer SET accountnum=:accountnum, firstname=:firstname, middlename=:middlename, lastname=:lastname, suffix=:suffix, address=:address, email=:email, contactnumber=:contactnumber, hashedpassword=:hashedpassword WHERE id = :id';
 		$stmt = $this->db->conn->prepare($sql);
-		$r = $stmt->execute([ ':firstname' => $data['firstname'],
+		$r = $stmt->execute([ ':accountnum' => $data['accountnum'],
+							':firstname' => $data['firstname'],
                             ':middlename' => $data['middlename'],
                             ':lastname' => $data['lastname'],
                             ':suffix' => $data['suffix'],

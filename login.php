@@ -14,54 +14,54 @@ if ($connection->connect_error) {
 
 $error = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST["email"];
+    $accountnum = $_POST["accountnum"];
     $password = $_POST["password"];
 
     // Prepare statement to prevent SQL Injection
-    $stmt = $connection->prepare("SELECT id, email, hashedpassword FROM consumer WHERE email = ?");
-    $stmt->bind_param("s", $email);
+    $stmt = $connection->prepare("SELECT id, accountnum, hashedpassword FROM consumer WHERE accountnum = ?");
+    $stmt->bind_param("s", $accountnum);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $email, $hashedpassword);
+        $stmt->bind_result($id, $accountnum, $hashedpassword);
         $stmt->fetch();
 
         if (password_verify($password, $hashedpassword)) {
             $_SESSION["loggedin"] = true;
-            $_SESSION["email"] = $email;
+            $_SESSION["accountnum"] = $accountnum;
             $_SESSION["id"] = $id;
             header("Location: /bileco/consumer/index.php");
             exit;
         } else {
-            $error = "Invalid email or password.";
+            $error = "Invalid account number or password.";
         }
     } else {
-        $error = "No account found with that email.";
+        $error = "No account found with that account number.";
     }
     $stmt->close();
 
     // Prepare statement to prevent SQL Injection
-    $stmt = $connection->prepare("SELECT id, email, hashedpassword FROM admins WHERE email = ?");
-    $stmt->bind_param("s", $email);
+    $stmt = $connection->prepare("SELECT id, accountnum, hashedpassword FROM admins WHERE accountnum = ?");
+    $stmt->bind_param("s", $accountnum);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $email, $hashedpassword);
+        $stmt->bind_result($id, $accountnum, $hashedpassword);
         $stmt->fetch();
 
         if (password_verify($password, $hashedpassword)) {
             $_SESSION["loggedin"] = true;
-            $_SESSION["email"] = $email;
+            $_SESSION["accountnum"] = $accountnum;
             $_SESSION["id"] = $id;
             header("Location: /bileco/admin/index.php");
             exit;
         } else {
-            $error = "Invalid email or password.";
+            $error = "Invalid accountnum or password.";
         }
     } else {
-        $error = "No account found with that email.";
+        $error = "No account found with that account number.";
     }
     $stmt->close();
 }
@@ -92,8 +92,8 @@ $connection->close();
                 <p class="text-center">Bileco</p>
                 <form action="login.php" method="post">
                   <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" required>
+                    <label for="accountnum" class="form-label">Account Number</label>
+                    <input type="accountnum" name="accountnum" class="form-control" id="accountnum" required>
                   </div>
                   <div class="mb-4">
                     <label for="password" class="form-label">Password</label>

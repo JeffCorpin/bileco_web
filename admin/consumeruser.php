@@ -29,6 +29,7 @@
                 <thead class="text-dark">
                   <tr>
                     <th class="border-bottom-0">ID</th>
+                    <th class="border-bottom-0">Account Number</th>
                     <th class="border-bottom-0">Name</th>
                     <th class="border-bottom-0">Address</th>
                     <th class="border-bottom-0">Email</th> 
@@ -44,6 +45,7 @@
                           if ($users) {
                             foreach ($users as $user):
                               $id = $user['id'];
+                              $accountnum = $user['accountnum'];
                               $firstname = $user['firstname'];
                               $middlename = $user['middlename']; 
                               $lastname = $user['lastname'];
@@ -54,7 +56,8 @@
                               $i++;
                             ?>
                         <tr class="text-center">
-                            <td class="text-center"><label><?=$i;?></label></td> 
+                            <td class="text-center"><label><?=$i;?></label></td>
+                            <td><label><?=$accountnum;?></label></td>
                             <td><label><?=$firstname;?> <?=$middlename;?> <?=$lastname;?> <?=$suffix;?></label></td> 
                             <td><label><?=$address;?></label></td> 
                             <td><label><?=$email;?></label></td> 

@@ -7,6 +7,7 @@
 
   $connection = new mysqli($servername, $username, $password, $database);
 
+  $accountnum = "";
   $firstname = "";
   $middlename = "";
   $lastname = "";
@@ -21,6 +22,7 @@
   $successMessage = "";
 
   if ( $_SERVER['REQUEST_METHOD'] == 'POST') {
+    $accountnum = $_POST["accountnum"];
     $firstname = $_POST["firstname"];
     $middlename = $_POST["middlename"];
     $lastname = $_POST["lastname"];
@@ -39,7 +41,7 @@
         $errorMessage = "Email already exists!";
     } else {
         // Email is unique, proceed with insertion
-        if (empty($firstname) || empty($middlename) || empty($lastname) || empty($address) || empty($email) || empty($contactnumber) || empty($password) || empty($confirmpassword)) {
+        if (empty($accountnum) || empty($firstname) || empty($middlename) || empty($lastname) || empty($address) || empty($email) || empty($contactnumber) || empty($password) || empty($confirmpassword)) {
             $errorMessage = "All the fields are required";
         } else if ($password !== $confirmpassword) {
             $errorMessage = "Passwords do not match";
@@ -48,7 +50,7 @@
             // Hash the password before storing
             $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
             // Perform the database insertion
-            $sql = "INSERT INTO consumer (firstname, middlename, lastname, suffix, address, email, contactnumber, hashedpassword) VALUES ('$firstname', '$middlename', '$lastname', '$suffix', '$address', '$email', '$contactnumber', '$hashedpassword')";
+            $sql = "INSERT INTO consumer (accountnum, firstname, middlename, lastname, suffix, address, email, contactnumber, hashedpassword) VALUES ('$accountnum', '$firstname', '$middlename', '$lastname', '$suffix', '$address', '$email', '$contactnumber', '$hashedpassword')";
             $result = $connection->query($sql);
 
             if (!$result) {
@@ -56,6 +58,7 @@
             } else {
                 $successMessage = "Account added successfully";
                 // Clear form fields after successful insertion
+                $accountnum = "";
                 $firstname = "";
                 $lastname = "";
                 $address = "";
@@ -128,10 +131,16 @@
 
 
                 <form method="POST">
+                <div class="mb-4">
+                    <label class="form-label">Account Number</label>
+                    <div>
+                    <input type="text" class="form-control" name="accountnum" value="<?php echo $accountnum; ?>"required?>
+                    </div>
+                  </div>
                   <div class="mb-4">
                     <label class="form-label">First Name</label>
                     <div>
-                    <input type="text" class="form-control" name="firstname" value="<?php echo $firstname; ?>">
+                    <input type="text" class="form-control" name="firstname" value="<?php echo $firstname; ?>"required?>
                     </div>
                   </div>
                   <div class="mb-4">
@@ -143,7 +152,7 @@
                   <div class="mb-4">
                     <label class="form-label">Last Name</label>
                     <div>
-                    <input type="text" class="form-control" name="lastname" value="<?php echo $lastname; ?>">
+                    <input type="text" class="form-control" name="lastname" value="<?php echo $lastname; ?>"required?>
                     </div>
                   </div>
                   <div class="mb-4">
@@ -160,31 +169,31 @@
                   <div class="mb-4">
                     <label class="form-label">Address</label>
                     <div>
-                    <input type="text" class="form-control" name="address" value="<?php echo $address; ?>">
+                    <input type="text" class="form-control" name="address" value="<?php echo $address; ?>" required?>
                     </div>
                   </div>
                   <div class="mb-4">
                     <label class="form-label">Email</label>
                     <div>
-                    <input type="email" class="form-control" name="email" value="<?php echo $email; ?>">
+                    <input type="email" class="form-control" name="email" value="<?php echo $email; ?>"required?>
                     </div>
                   </div>
                   <div class="mb-4">
                     <label class="form-label">Contact Number</label>
                     <div>
-                    <input type="tel" class="form-control" name="contactnumber" value="<?php echo $contactnumber; ?>">
+                    <input type="tel" class="form-control" name="contactnumber" value="<?php echo $contactnumber; ?>"required?>
                     </div>
                   </div>
                   <div class="mb-4">
                     <label class="form-label">Password</label>
                     <div>
-                    <input type="password" class="form-control" name="password" value="<?php echo $password; ?>">
+                    <input type="password" class="form-control" name="password" value="<?php echo $password; ?>"required?>
                     </div>
                   </div>
                   <div class="mb-4">
                     <label class="form-label">Confirm Password</label>
                     <div>
-                    <input type="password" class="form-control" name="confirmpassword" value="<?php echo $confirmpassword; ?>">
+                    <input type="password" class="form-control" name="confirmpassword" value="<?php echo $confirmpassword; ?>"required?>
                     </div>
                   </div>
 
