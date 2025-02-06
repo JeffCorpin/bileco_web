@@ -9,6 +9,7 @@ fetch("script.php")
   .catch(error => console.error("Error fetching data:", error));
 
 function createChart(chartData, type) {
+  
   new Chart(ctx, {
     type: type,
     data: {
