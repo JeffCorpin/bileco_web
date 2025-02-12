@@ -14,11 +14,11 @@
 
   <style>
     .left-sidebar {
-    margin-left: -25px; /* Adjust the margin as needed */
+      margin-left: -25px;
     }
 
     body {
-      background-color: white; /* White background color */
+      background-color: white;
     }
 
     .btn {
@@ -27,20 +27,128 @@
     }
 
     .navbar {
-      border-left: 1px solid #ccc; /* Add a 1px solid border to the left side of the navbar */
-      border-right: 1px solid #ccc; /* Add a 1px solid border to the right side of the navbar */
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
     }
+    
+    /* Floating Chatbot Button */
+.chatbot-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Chatbot Container */
+.chatbot-container {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 320px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    animation: fadeInUp 0.3s ease-in-out;
+}
+
+/* Chatbot Header */
+.chatbot-header {
+    background: #007bff;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Chatbot Messages */
+.chatbot-messages {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Chatbot Footer */
+.chatbot-footer {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+/* Chatbot Input */
+#chatbotInput {
+    flex: 1;
+    border-radius: 20px;
+    padding: 8px;
+}
+
+/* Chatbot Messages Styling */
+.chatbot-message {
+    padding: 8px 12px;
+    border-radius: 15px;
+    margin-bottom: 8px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.chatbot-message.user {
+    align-self: flex-end;
+    background: #007bff;
+    color: white;
+}
+
+.chatbot-message.bot {
+    align-self: flex-start;
+    background: #f1f1f1;
+    color: black;
+}
+
+/* Scrollbar Styling */
+.chatbot-messages::-webkit-scrollbar {
+    width: 5px;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb {
+    background: #007bff;
+    border-radius: 10px;
+}
+
+/* Fade-in Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
   </style>
 
 </head>
 
 <body>
-  <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
-    <!-- Sidebar Start -->
     <aside class="left-sidebar">
-      <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex justify-content-center align-items-center">
           <a href="index.php" class="text-nowrap logo-img">
@@ -50,16 +158,12 @@
             <i class="ti ti-x fs-8"></i>
           </div>
         </div>
-
-        <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar">
           <ul id="sidebarnav">
-
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Home</span>
             </li>
-
             <li class="sidebar-item">
                 <a class="btn sidebar-link" href="index.php" aria-expanded="false">
                     <span>
@@ -68,7 +172,6 @@
                     <span class="hide-menu">Dashboard</span>
                 </a>
             </li>
-
             <li class="sidebar-item" style="margin-top: 10px">
               <a class="btn sidebar-link" href="/bileco/login.php" aria-expanded="false">
                 <span>
@@ -79,14 +182,9 @@
             </li>
           </ul>
         </nav>
-        <!-- End Sidebar navigation -->
       </div>
-      <!-- End Sidebar scroll-->
     </aside>
-    <!--  Sidebar End -->
-    <!--  Main wrapper -->
     <div class="body-wrapper">
-      <!--  Header Start -->
       <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
           <ul class="navbar-nav">
@@ -101,6 +199,8 @@
                 <div class="notification bg-primary rounded-circle"></div>
               </a>
             </li>
+           
+
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">             
@@ -130,7 +230,30 @@
             </ul>
           </div>
         </nav>
+
+       <!-- Chatbot Toggle Button -->
+<button id="chatbotToggle" class="btn btn-primary chatbot-button">
+    <i class="fa-solid fa-robot"></i>
+</button>
+
+<!-- Chatbot Container -->
+<div id="chatbotContainer" class="chatbot-container d-none">
+    <div class="chatbot-header">
+        <span>Chatbot Assistant</span>
+        <button id="closeChatbot" class="btn-close"></button>
+    </div>
+    <div id="chatbotMessages" class="chatbot-messages"></div>
+    <div class="chatbot-footer">
+        <input type="text" id="chatbotInput" class="form-control" placeholder="Type a message..." />
+        <button id="sendChatbotMessage" class="btn btn-primary">
+            <i class="fa-solid fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+
       </header>
-      <!--  Header End -->
+
+      <script src="chatbot.js"></script>
 
 <div class="container-fluid">
